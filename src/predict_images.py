@@ -1,7 +1,6 @@
 import numpy as np
-# import matplotlib
-# matplotlib.use("tkagg")
-# import matplotlib.pyplot as plt
+
+import matplotlib.pyplot as plt
 # import glob
 from skimage import io, color, filters, feature, restoration
 from skimage.transform import resize, rotate
