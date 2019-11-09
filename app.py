@@ -149,8 +149,9 @@ def predict():
     standardizer_subset = Standardizer(image)
     gray_image = standardizer_subset.greyscale_image
     flat_arr = np.array(gray_image).flatten()
-    bin_image = standardizer_subset.binarized_image
-    whitespace = np.mean(np.sort(flat_arr)[::-1][100:150])
+    n, bins, patches = plt.hist(flat_arr, bins=30)
+    bin_max = np.where(n == n.max())
+    whitespace = bins[bin_max][0]
     generator = ImageGenerator(bin_image, gray_image, filename)
     generator.pad(15, whitespace)
     gray = generator.gray_padded_image
