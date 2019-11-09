@@ -7,6 +7,7 @@ import sys
 import PIL
 import numpy as np
 from PIL import Image
+import xgboost
 sys.path.append("..")
 from src.standardizer import Standardizer
 from src.imageData_generator import ImageGenerator
@@ -36,7 +37,7 @@ class fileguy(object):
 
 globalfile = fileguy(' ')
 # load the pickled model
-model_path = 'models/models/random_forest.sav'
+model_path = 'models/models/xg_boost.sav'
 
 def resize(filename, width=400):
     mywidth = width

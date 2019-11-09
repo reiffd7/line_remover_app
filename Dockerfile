@@ -2,10 +2,10 @@
 FROM python:3.6.9
 
 # Set the working directory to /app
-WORKDIR /my_app
+WORKDIR /line_remover_app
 
 # Copy the current directory contents into the container at /app
-COPY . /my_app
+COPY . /line_remover_app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
