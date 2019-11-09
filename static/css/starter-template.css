@@ -1,0 +1,19 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+
+#inp {
+  /* display: block;
+  text-align: center;
+  vertical-align: middle; */
+  margin: 0 auto;
+  width:250px
+  /* position: absolute;
+  left:300px; */
+  /* top: 50%; */
+}
