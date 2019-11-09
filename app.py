@@ -22,7 +22,6 @@ MODELS_DIRECTORY = os.path.join(ROOT_DIRECTORY, 'models/models')
 UPLOAD_FOLDER = os.path.join(SCRIPT_DIRECTORY, 'uploads')
 CLEANED_UPLOADS = os.path.join(SCRIPT_DIRECTORY, 'cleaned_uploads')
 SCRUBBED_UPLOADS = os.path.join(SCRIPT_DIRECTORY, 'scrubbed_uploads')
-
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 
@@ -56,6 +55,8 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    print(SCRUBBED_UPLOADS)
+    print(SCRIPT_DIRECTORY)
     for the_file in os.listdir(SCRUBBED_UPLOADS):
         file_path = os.path.join(SCRUBBED_UPLOADS, the_file)
         try:
