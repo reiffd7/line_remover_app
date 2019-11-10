@@ -11,7 +11,7 @@ import xgboost
 sys.path.append("..")
 from src.standardizer import Standardizer
 from src.imageData_generator import ImageGenerator
-from src.predict_images import LineScrubber
+from src.predict_imagesCNN import LineScrubber
 from werkzeug import secure_filename
 this_file = os.path.realpath(__file__)
 SCRIPT_DIRECTORY = os.path.split(this_file)[0]
@@ -37,7 +37,7 @@ class fileguy(object):
 
 globalfile = fileguy(' ')
 # load the pickled model
-model_path = 'models/models/xg_boost.sav'
+model_path = 'models/models/CNN_E100_Batch10_Filters64_Neurons64_Actrelu_Layers_3.h5'
 
 def resize(filename, width=400):
     mywidth = width
@@ -149,15 +149,16 @@ def predict():
     standardizer_subset = Standardizer(image)
     gray_image = standardizer_subset.greyscale_image
     bin_image = standardizer_subset.binarized_image
-    flat_arr = np.array(gray_image).flatten()
-    n, bins, patches = plt.hist(flat_arr, bins=30)
+    arr = np.array(gray_image)
+    first10_flat = arr[:10, :].flatten()
+    n, bins, patches = plt.hist(first10_flat, bins=30)
     bin_max = np.where(n == n.max())
     whitespace = bins[bin_max][0]
     generator = ImageGenerator(bin_image, gray_image, filename)
     generator.pad(15, whitespace)
     gray = generator.gray_padded_image
-    binar = generator.bin_padded_image
-    scrubber = LineScrubber(binar, gray, 0.55, whitespace+5, model_path, os.path.join(SCRUBBED_UPLOADS, filename))
+    # binar = generator.bin_padded_image
+    scrubber = LineScrubber(gray, 0.55, whitespace, model_path, os.path.join(SCRUBBED_UPLOADS, filename))
     # request the text from the form 
     # X = [request.form['article1'], request.form['article2']]
     # y_pred = model.predict(X)

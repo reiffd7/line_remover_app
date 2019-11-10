@@ -101,7 +101,7 @@ class LineScrubber(object):
     def scrub(self, size=30):
         gray = self.gray_image
         binar = self.bin_image
-        visit_list = np.argwhere(gray <= (self.whitespace - 10))
+        visit_list = np.argwhere(gray <= (self.whitespace - 5))
         last_3 = [-1, -1, -1]
         # self.save_fig(os.path.join(RESULTS_DIRECTORY, '{}_before.png'.format(self.figname)))
         for x in visit_list:

@@ -2,10 +2,9 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
 import numpy as np
-from CNN import imageCNN
-from standardizer import Standardizer
-from imageData_generator import ImageGenerator
-import glob
+# from standardizer import Standardizer
+# from imageData_generator import ImageGenerator
+# import glob
 import os
 import sys
 from skimage import io, color, filters, feature, restoration
@@ -84,13 +83,13 @@ class LineScrubber(object):
             self.gray_image[i+15, j+15] = self.whitespace ## mean of whitespace
             print('pixel changed')
 
-    def save_fig(self, path):
-        plt.imsave(path, self.gray_image,  cmap='gray')
+    def save_fig(self):
+        plt.imsave(self.figname, self.gray_image,  cmap='gray')
 
     def scrub(self, size=30):
         gray = self.gray_image
         visit_list = np.argwhere(gray <= (self.whitespace - 5))
-        self.save_fig(os.path.join(RESULTS_DIRECTORY, '{}_before.png'.format(self.figname)))
+        # self.save_fig(os.path.join(RESULTS_DIRECTORY, '{}_before.png'.format(self.figname)))
         for x in visit_list:
             i = x[0]-15
             j = x[1]-15
@@ -102,42 +101,42 @@ class LineScrubber(object):
             prediction = self.predict(gray_window)
             print(prediction)
             self.alter_image(i, j, prediction)
-        self.save_fig(os.path.join(RESULTS_DIRECTORY, '{}_after.png'.format(self.figname)))
+        self.save_fig()
 
 
-if __name__ == '__main__':
-    print('Loading model')
-    model_path = '../models/models/CNN_E100_Batch10_Filters64_Neurons64_Actrelu_Layers_3.h5'
+# if __name__ == '__main__':
+#     print('Loading model')
+#     model_path = '../models/models/CNN_E100_Batch10_Filters64_Neurons64_Actrelu_Layers_3.h5'
 
-    print('Loading resized images')
-    resized_imgs = glob.glob('../data/medium/*')
+#     print('Loading resized images')
+#     resized_imgs = glob.glob('../data/medium/*')
 
-    print('Subset the images that we want, the ones we trained the model on')
-    img_list = [164, 202, 425, 345, 139, 72, 311, 363, 403, 509, 362, 257, 175, 203, 47, 183, 0, 297, 34, 8, 320, 197, 293, 450, 215, 28, 74]
-    img_subset = []
-    for img in resized_imgs:
-        img_idx = int(img.split('/')[3].split('_')[0])
-        if img_idx in img_list:
-            img_subset.append(img)
+#     print('Subset the images that we want, the ones we trained the model on')
+#     img_ list = [164, 202, 425, 345, 139, 72, 311, 363, 403, 509, 362, 257, 175, 203, 47, 183, 0, 297, 34, 8, 320, 197, 293, 450, 215, 28, 74]
+#     img_subset = []
+#     for img in resized_imgs:
+#         img_idx = int(img.split('/')[3].split('_')[0])
+#         if img_idx in img_list:
+#             img_subset.append(img)
 
-    print('Standardize the images')
-    standardizer_subset = Standardizer(img_subset, resized_imgs[3])
+#     print('Standardize the images')
+#     standardizer_subset = Standardizer(img_subset, resized_imgs[3])
 
-    print('Select the image we want to scrub')
-    bin_image = standardizer_subset.binarized_images[6]
-    grey_image = standardizer_subset.greyscale_image_list[6]
-    img_name = standardizer_subset.image_list[6].split('/')[3].split('.')[0]
-    print(img_name)
+#     print('Select the image we want to scrub')
+#     bin_image = standardizer_subset.binarized_images[6]
+#     grey_image = standardizer_subset.greyscale_image_list[6]
+#     img_name = standardizer_subset.image_list[6].split('/')[3].split('.')[0]
+#     print(img_name)
 
-    m_type = 'CNN'
+#     m_type = 'CNN'
     
-    i = 3
+#     i = 3
 
-    print('Ready to scrub')
-    images = ImageGenerator(bin_image, grey_image, img_name)
-    images.pad(15, 237.4)
-    gray = images.gray_padded_image
+#     print('Ready to scrub')
+#     images = ImageGenerator(bin_image, grey_image, img_name)
+#     images.pad(15, 237.4)
+#     gray = images.gray_padded_image
 
-    thresholds = [0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9]
+#     thresholds = [0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9]
     
-    scrubber = LineScrubber(gray, 0.55, 202.0, model_path, '{}_{}_{}_test'.format(img_name, 'CNN_E100_Batch10_Filters64_Neurons64_Actrelu_Layers_3.h5', 0.55))
+#     scrubber = LineScrubber(gray, 0.55, 202.0, model_path, '{}_{}_{}_test'.format(img_name, 'CNN_E100_Batch10_Filters64_Neurons64_Actrelu_Layers_3.h5', 0.55))
