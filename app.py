@@ -148,6 +148,7 @@ def predict():
     image = os.path.join(CLEANED_UPLOADS, filename)
     standardizer_subset = Standardizer(image)
     gray_image = standardizer_subset.greyscale_image
+    bin_image = standardizer_subset.binarized_image
     flat_arr = np.array(gray_image).flatten()
     n, bins, patches = plt.hist(flat_arr, bins=30)
     bin_max = np.where(n == n.max())
