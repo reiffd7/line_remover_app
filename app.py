@@ -157,7 +157,7 @@ def predict():
     generator.pad(15, whitespace)
     gray = generator.gray_padded_image
     binar = generator.bin_padded_image
-    scrubber = LineScrubber(binar, gray, 0.55, whitespace, model_path, os.path.join(SCRUBBED_UPLOADS, filename))
+    scrubber = LineScrubber(binar, gray, 0.55, whitespace+5, model_path, os.path.join(SCRUBBED_UPLOADS, filename))
     # request the text from the form 
     # X = [request.form['article1'], request.form['article2']]
     # y_pred = model.predict(X)
