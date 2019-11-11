@@ -7,7 +7,6 @@ import sys
 import PIL
 import numpy as np
 from PIL import Image
-import xgboost
 sys.path.append("..")
 from src.standardizer import Standardizer
 from src.imageData_generator import ImageGenerator
@@ -37,7 +36,7 @@ class fileguy(object):
 
 globalfile = fileguy(' ')
 # load the pickled model
-model_path = 'models/models/CNN_E100_Batch10_Filters64_Neurons64_Actrelu_Layers_3.h5'
+model_path = 'models/models/moredata_CNN_E100_Batch10_Filters64_Neurons64_Actrelu_Layers_3.h5'
 
 def resize(filename, width=400):
     mywidth = width
