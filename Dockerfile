@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.6.9
+FROM tensorflow/tensorflow:2.0.0a0-py3
 
 # Set the working directory to /app
 WORKDIR /line_remover_app

@@ -1,4 +1,4 @@
-Flask
+Flask==1.0.0
 keras
 numpy
 Pillow
