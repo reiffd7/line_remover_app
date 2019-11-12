@@ -36,7 +36,7 @@ class fileguy(object):
 
 globalfile = fileguy(' ')
 # load the pickled model
-model_path = 'models/models/moredata_CNN_E10_Batch10_Filters64_Neurons16_Actrelu_Layers_3.h5'
+model_path = 'models/models/moredata_CNN_E10_Batch10_Filters64_Neurons32_Actrelu_Layers_3.h5'
 
 def resize(filename, width=400):
     mywidth = width
@@ -118,8 +118,7 @@ def send_file1(filename):
     return send_from_directory(CLEANED_UPLOADS, filename)
  
 @app.route('/scrubbed_uploads/<filename>')
-def get_prediction():
-    filename = gloablfile.filename
+def get_prediction(filename):
     return send_from_directory(SCRUBBED_UPLOADS, filename)
 
 @app.route('/download', methods = ["GET", "POST"])
