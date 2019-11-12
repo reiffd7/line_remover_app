@@ -118,9 +118,9 @@ def send_file1(filename):
     return send_from_directory(CLEANED_UPLOADS, filename)
  
 @app.route('/scrubbed_uploads/<filename>')
-def get_prediction(filename):
-    fname = gloablfile.filename
-    return send_from_directory(SCRUBBED_UPLOADS, fname)
+def get_prediction():
+    filename = gloablfile.filename
+    return send_from_directory(SCRUBBED_UPLOADS, filename)
 
 @app.route('/download', methods = ["GET", "POST"])
 def downloadFile ():
